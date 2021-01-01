@@ -1,0 +1,63 @@
+# code source: https://www.askpython.com/python/python-yield-examples
+
+##Let’s say we have a function that returns a list of random numbers.
+
+from random import randint
+ 
+def get_random_ints(count, begin, end):
+    print("get_random_ints start")
+    list_numbers = []
+    for x in range(0, count):
+        list_numbers.append(randint(begin, end))
+    print("get_random_ints end")
+    return list_numbers
+ 
+ 
+print(type(get_random_ints))
+nums = get_random_ints(10, 0, 100)
+print(nums)
+
+"""It works great when the “count” value is not too large. If we specify count as 100000,
+then our function will use a lot of memory to store that many values in the list.
+In that case, using yield keyword to create a generator function is beneficial.
+Let’s convert the function to a generator function and use the generator iterator to retrieve values one by one."""
+
+def get_random_ints(count, begin, end):
+    print("get_random_ints start")
+    for x in range(0, count):
+        yield randint(begin, end)
+    print("get_random_ints end")
+ 
+ 
+nums_generator = get_random_ints(10, 0, 100)
+print(type(nums_generator))
+for i in nums_generator:
+    print(i)
+    
+    
+""" """
+
+
+
+
+
+
+
+
+
+
+
+
+#Here is a simple example of a generator function which returns 7 random integers
+import random
+
+def lottery():
+    # returns 6 numbers between 1 and 40
+    for i in range(6):
+        yield random.randint(1, 40)
+
+    # returns a 7th number between 1 and 15
+    yield random.randint(1,15)
+
+for random_number in lottery():
+       print("And the next number is... %d!" %(random_number))
